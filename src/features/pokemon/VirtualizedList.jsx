@@ -12,7 +12,7 @@ const Cell = ({ columnIndex, rowIndex, style, results, columns }) => {
   }
   const { id, name } = results[index];
   return (
-    <div style={{ ...style }}>
+    <div style={{ ...style, paddingInline: ".6em" }}>
       <PokemonCard key={id} name={name} />
     </div>
   );
