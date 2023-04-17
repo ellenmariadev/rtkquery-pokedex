@@ -1,7 +1,10 @@
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { createSlice } from "@reduxjs/toolkit";
 
+const [getFavorites, setFavorites] = useLocalStorage("favorites", []);
+
 const initialState = {
-  favorites: [],
+  favorites: getFavorites(),
 };
 
 const favoriteSlice = createSlice({
@@ -22,6 +25,12 @@ const favoriteSlice = createSlice({
         );
         state.favorites = favoriteItem;
       }
+      setFavorites(
+        state.favorites.map((pokemon) => ({
+          id: pokemon.id,
+          name: pokemon.name,
+        })),
+      );
     },
   },
 });
