@@ -1,0 +1,7 @@
+.react-window-list::-webkit-scrollbar {
+  display: none;
+}
+
+.react-window-list {
+  scrollbar-width: none;
+}
