@@ -55,7 +55,14 @@ const PokemonCard = ({ name }) => {
     <Card boxShadow="xl" borderRadius="40px 0" border="3px solid lightblue">
       <CardHeader>
         <Flex>
-          <Text fontSize="xs" letterSpacing={1} fontWeight={600} color="gray.600">#{String(`${pokemon.id}`).padStart(3, "0")}</Text>
+          <Text
+            fontSize="xs"
+            letterSpacing={1}
+            fontWeight={600}
+            color="gray.600"
+          >
+            #{String(`${pokemon.id}`).padStart(3, "0")}
+          </Text>
           <Spacer />
           <Tooltip
             hasArrow
@@ -85,7 +92,7 @@ const PokemonCard = ({ name }) => {
           </Tooltip>
         </Flex>
         <Center>
-          {imageUrl ? (
+          {imageUrl() ? (
             <Image
               width="120px"
               height="120px"
@@ -94,6 +101,8 @@ const PokemonCard = ({ name }) => {
             />
           ) : (
             <Image
+              width="120px"
+              height="120px"
               className="pokemon-image"
               src="https://i.ibb.co/RzGBsmR/placeholderr.png"
               alt={pokemon.name}
@@ -103,18 +112,19 @@ const PokemonCard = ({ name }) => {
       </CardHeader>
       <CardBody>
         <Center>
-          <Heading as="h3" size="md" fontWeight={700} color="gray.600" textTransform="capitalize">
+          <Heading
+            as="h3"
+            size="md"
+            fontWeight={700}
+            color="gray.600"
+            textTransform="capitalize"
+          >
             {pokemon.name}
           </Heading>
         </Center>
         <Center>
           {pokemon.types.map((type) => (
-            <Badge
-              key={type.type.name}
-              mt={1}
-              ml={1}
-              colorScheme="red"
-            >
+            <Badge key={type.type.name} mt={1} ml={1} colorScheme="red">
               {type.type.name}
             </Badge>
           ))}
