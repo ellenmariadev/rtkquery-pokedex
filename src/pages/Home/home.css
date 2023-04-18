@@ -1,0 +1,8 @@
+.background-image {
+  display: grid;
+  height: 100vh;
+  background-image: url("../../assets/home.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center bottom;
+}
