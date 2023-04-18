@@ -1,6 +1,5 @@
 import { useGetAllQuery } from "@/api/apiSlice";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   Tabs,
@@ -18,18 +17,18 @@ import {
 } from "@chakra-ui/react";
 import { TbPokeball, TbHeart } from "react-icons/tb";
 import VirtualizedList from "./VirtualizedList";
+import { ErrorPage } from "@/pages";
 
 const PokemonList = () => {
   const [limit, setLimit] = useState(12);
   const [isLoadingMore, setIsLoadingMore] = useState(true);
 
-  const { data, isLoading, isFetching, isError } = useGetAllQuery(limit);
+  const { data, isLoading, isFetching, error } = useGetAllQuery(limit);
   const results = data?.results ?? [];
 
   const { favorites } = useSelector((state) => state.favorites);
 
   const gridRef = useRef();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (results.length) {
@@ -50,8 +49,8 @@ const PokemonList = () => {
     setLimit((prev) => prev + 8);
   };
 
-  if (isError) {
-    navigate("/error");
+  if (error) {
+    return <ErrorPage />;
   }
 
   return (
@@ -88,6 +87,7 @@ const PokemonList = () => {
           <TabPanels>
             <TabPanel>
               <Text
+                data-testid="total"
                 fontSize="xs"
                 letterSpacing={1}
                 fontWeight={600}
@@ -95,11 +95,12 @@ const PokemonList = () => {
                 textTransform="uppercase"
                 pb={5}
               >
-                Total: {results.length}
+                pokémons: {results.length}
               </Text>
               <VirtualizedList results={results} gridRef={gridRef} />
               <Center>
                 <Button
+                  data-testid="button-loadmore"
                   mt={4}
                   isLoading={isLoadingMore || isFetching ? true : false}
                   loadingText="Carregando"
